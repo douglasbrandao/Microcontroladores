@@ -1,0 +1,48 @@
+
+ROM used:   205/8192 (3%)
+            205/8192 (3%) including unused fragments
+
+            0.3 Average locations per line
+            18.6 Average locations per statement
+
+RAM used:   7/368 (2%) at main() level
+            16/368 (4%) worst case
+
+Stack used: 1 worst case (1 in main + 0 for interrupts)
+Stack size: 8
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   29    11 100  transmissor.c
+  661     0   0  ..\..\..\..\..\..\..\..\Program Files (x86)\PICC\Devices\16F877A.h
+----- -----
+  690    11 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0    112  55    2   233  2.2  main
+0     89  43    9             @PRINTF_LU_2400_62_63
+ Inline         0             @cinit1
+
+Program metrics:
+    Functions               1
+    Statements              11
+    Comments                112
+    Volume (V)              238
+    Difficulty (D)          2.0
+    Effort to implement (E) 480
+    Time to implement (T)   0 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   1
+    Maintainability (MI)    72
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00003     4  0  
+00004-007FF   201  1843  
+00800-00FFF     0  2048  
+01000-017FF     0  2048  
+01800-01FFF     0  2048  
+
+
+

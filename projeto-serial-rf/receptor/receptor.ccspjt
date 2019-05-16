@@ -1,0 +1,23 @@
+[PROJECT]
+Target=receptor.hex
+Processor_Text=PIC16F877A
+CCSVerions=5.008
+Compiler=PCM
+CCSVersion=5.008
+[Target Data]
+FileList=receptor.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\
+[C:\Users\dougl\Desktop\Faculdade 2019 - 1\Microcontroladores\Projetos\projeto-serial-rf\receptor\receptor]
+Type=4
+[mru-list]
+1=receptor.c
+[Opened Files]
+1=receptor.c
+2=
+3=
+[receptor.c]
+Type=4
+[Units]
+Count=1
+1=receptor (main)
