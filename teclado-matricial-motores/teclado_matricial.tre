@@ -1,0 +1,11 @@
+ÀÄteclado_matricial
+   ÃÄMAIN  0/175  Ram=1
+   ³  ÃÄ@cinit1  (Inline)  Ram=0
+   ³  ÃÄkbd_init  0/3  Ram=0
+   ³  ÃÄkbd_getc  0/157  Ram=3
+   ³  ³  ÃÄALL_ROWS  0/37  Ram=1
+   ³  ³  ÃÄALL_ROWS  0/37  Ram=1
+   ³  ³  ÃÄ@MUL88  (Inline)  Ram=2
+   ³  ³  ÀÄ@const619  0/16  Ram=0
+   ³  ÀÄ@delay_ms1  0/22  Ram=1
+   ÀÄRTCC_isr  0/116  Ram=1
