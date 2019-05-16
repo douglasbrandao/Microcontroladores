@@ -1,0 +1,19 @@
+[PROJECT]
+Target=C:\Users\dougl\Desktop\Microcontroladores\Projetos\semaforo\teste.hex
+Processor_Text=PIC16F877A
+CCSVerions=5.008
+Compiler=PCM
+[Target Data]
+FileList=teste.c
+[Directories]
+Include=
+[C:\Users\dougl\Desktop\Microcontroladores\Projetos\semaforo\teste]
+Type=4
+[mru-list]
+1=teste.c
+[Units]
+Count=1
+1=teste (main)
+[Opened Files]
+1=teste.c
+2=

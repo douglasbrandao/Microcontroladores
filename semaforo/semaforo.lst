@@ -1,0 +1,285 @@
+CCS PCM C Compiler, Version 5.008, 5967               12-Mar-19 22:43
+
+               Filename:   C:\Users\dougl\Desktop\Microcontroladores\Projetos\semaforo\semaforo.lst
+
+               ROM used:   178 words (2%)
+                           Largest free fragment is 2048
+               RAM used:   7 (2%) at main() level
+                           8 (2%) worst case
+               Stack used: 1 locations
+               Stack size: 8
+
+*
+0000:  MOVLW  00
+0001:  MOVWF  0A
+0002:  GOTO   018
+0003:  NOP
+.................... #include <semaforo.h> 
+.................... #include <16F877A.h> 
+.................... //////// Standard Header file for the PIC16F877A device //////////////// 
+.................... #device PIC16F877A 
+....................  
+.................... #list 
+....................  
+.................... #device ADC=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+....................  
+.................... #use delay(crystal=20000000) 
+0004:  MOVLW  23
+0005:  MOVWF  04
+0006:  BCF    03.7
+0007:  MOVF   00,W
+0008:  BTFSC  03.2
+0009:  GOTO   017
+000A:  MOVLW  06
+000B:  MOVWF  78
+000C:  CLRF   77
+000D:  DECFSZ 77,F
+000E:  GOTO   00D
+000F:  DECFSZ 78,F
+0010:  GOTO   00C
+0011:  MOVLW  7B
+0012:  MOVWF  77
+0013:  DECFSZ 77,F
+0014:  GOTO   013
+0015:  DECFSZ 00,F
+0016:  GOTO   00A
+0017:  RETURN
+.................... #use fixed_io(d_outputs=PIN_D0, PIN_D1, PIN_D4, PIN_D5, PIN_D6) 
+....................  
+....................  
+.................... // declaração dos leds e os respectivos pinos 
+....................  
+.................... #define PEDESTRE_VERMELHO PIN_D0 
+.................... #define PEDESTRE_VERDE PIN_D1 
+.................... #define CARRO_VERMELHO PIN_D4 
+.................... #define CARRO_AMARELO PIN_D5 
+.................... #define CARRO_VERDE PIN_D6 
+.................... #define PEDESTRE_BOTAO PIN_B0 
+....................  
+.................... // delays 
+....................  
+.................... #define DELAY_AMARELO 1000 // delay de atenção do sinal 
+.................... #define DELAY_CLICA_BOTAO 2000 // delay pra abrir o sinal após o pedestre apertar o botão (2 segundos) 
+.................... #define DELAY_PEDESTRE 10000 // delay para o pedestre passar (10 segundos) 
+....................  
+.................... void main(){ 
+0018:  MOVF   03,W
+0019:  ANDLW  1F
+001A:  MOVWF  03
+001B:  BSF    03.5
+001C:  BSF    1F.0
+001D:  BSF    1F.1
+001E:  BSF    1F.2
+001F:  BCF    1F.3
+0020:  MOVLW  07
+0021:  MOVWF  1C
+0022:  BCF    03.7
+....................  
+....................    int i; 
+....................  
+....................    output_low(CARRO_VERMELHO); 
+0023:  MOVLW  8C
+0024:  MOVWF  08
+0025:  BCF    03.5
+0026:  BCF    08.4
+....................    output_low(CARRO_AMARELO); 
+0027:  BSF    03.5
+0028:  MOVWF  08
+0029:  BCF    03.5
+002A:  BCF    08.5
+....................    output_high(CARRO_VERDE); 
+002B:  BSF    03.5
+002C:  MOVWF  08
+002D:  BCF    03.5
+002E:  BSF    08.6
+....................     
+....................    output_high(PEDESTRE_VERMELHO); 
+002F:  BSF    03.5
+0030:  MOVWF  08
+0031:  BCF    03.5
+0032:  BSF    08.0
+....................    output_low(PEDESTRE_VERDE); 
+0033:  BSF    03.5
+0034:  MOVWF  08
+0035:  BCF    03.5
+0036:  BCF    08.1
+....................  
+....................    while(TRUE){ 
+....................  
+....................        
+....................       if(input(PEDESTRE_BOTAO) == 1){ // leitura do estado do botão (1 p/ HIGH e 0 p/ LOW) 
+0037:  BSF    03.5
+0038:  BSF    06.0
+0039:  BCF    03.5
+003A:  BTFSS  06.0
+003B:  GOTO   0B0
+....................        
+....................          // desliga o verde e acende o amarelo 
+....................           
+....................          delay_ms(DELAY_CLICA_BOTAO); 
+003C:  MOVLW  08
+003D:  MOVWF  22
+003E:  MOVLW  FA
+003F:  MOVWF  23
+0040:  CALL   004
+0041:  DECFSZ 22,F
+0042:  GOTO   03E
+....................          output_low(CARRO_VERDE); 
+0043:  MOVLW  8C
+0044:  BSF    03.5
+0045:  MOVWF  08
+0046:  BCF    03.5
+0047:  BCF    08.6
+....................          output_high(CARRO_AMARELO); 
+0048:  BSF    03.5
+0049:  MOVWF  08
+004A:  BCF    03.5
+004B:  BSF    08.5
+....................           
+....................          // desliga o amarelo e acende o vermelho 
+....................           
+....................          delay_ms(DELAY_AMARELO); 
+004C:  MOVLW  04
+004D:  MOVWF  22
+004E:  MOVLW  FA
+004F:  MOVWF  23
+0050:  CALL   004
+0051:  DECFSZ 22,F
+0052:  GOTO   04E
+....................          output_low(CARRO_AMARELO); 
+0053:  MOVLW  8C
+0054:  BSF    03.5
+0055:  MOVWF  08
+0056:  BCF    03.5
+0057:  BCF    08.5
+....................          output_high(CARRO_VERMELHO); 
+0058:  BSF    03.5
+0059:  MOVWF  08
+005A:  BCF    03.5
+005B:  BSF    08.4
+....................           
+....................          // desliga o vermelho do pedestre e acende o verde 
+....................           
+....................          delay_ms(DELAY_AMARELO); 
+005C:  MOVLW  04
+005D:  MOVWF  22
+005E:  MOVLW  FA
+005F:  MOVWF  23
+0060:  CALL   004
+0061:  DECFSZ 22,F
+0062:  GOTO   05E
+....................          output_low(PEDESTRE_VERMELHO); 
+0063:  MOVLW  8C
+0064:  BSF    03.5
+0065:  MOVWF  08
+0066:  BCF    03.5
+0067:  BCF    08.0
+....................          output_high(PEDESTRE_VERDE); 
+0068:  BSF    03.5
+0069:  MOVWF  08
+006A:  BCF    03.5
+006B:  BSF    08.1
+....................           
+....................          delay_ms(DELAY_PEDESTRE); // tempo para o pedestre passar 
+006C:  MOVLW  28
+006D:  MOVWF  22
+006E:  MOVLW  FA
+006F:  MOVWF  23
+0070:  CALL   004
+0071:  DECFSZ 22,F
+0072:  GOTO   06E
+....................           
+....................          output_low(PEDESTRE_VERDE); // desliga o verde pro pedestre 
+0073:  MOVLW  8C
+0074:  BSF    03.5
+0075:  MOVWF  08
+0076:  BCF    03.5
+0077:  BCF    08.1
+....................           
+....................          for(i=0;i<5;i++){ 
+0078:  CLRF   21
+0079:  MOVF   21,W
+007A:  SUBLW  04
+007B:  BTFSS  03.0
+007C:  GOTO   097
+....................             output_high(PEDESTRE_VERMELHO); 
+007D:  MOVLW  8C
+007E:  BSF    03.5
+007F:  MOVWF  08
+0080:  BCF    03.5
+0081:  BSF    08.0
+....................             delay_ms(500); 
+0082:  MOVLW  02
+0083:  MOVWF  22
+0084:  MOVLW  FA
+0085:  MOVWF  23
+0086:  CALL   004
+0087:  DECFSZ 22,F
+0088:  GOTO   084
+....................             output_low(PEDESTRE_VERMELHO); 
+0089:  MOVLW  8C
+008A:  BSF    03.5
+008B:  MOVWF  08
+008C:  BCF    03.5
+008D:  BCF    08.0
+....................             delay_ms(500); 
+008E:  MOVLW  02
+008F:  MOVWF  22
+0090:  MOVLW  FA
+0091:  MOVWF  23
+0092:  CALL   004
+0093:  DECFSZ 22,F
+0094:  GOTO   090
+0095:  INCF   21,F
+0096:  GOTO   079
+....................          } 
+....................           
+....................          output_high(PEDESTRE_VERMELHO); 
+0097:  MOVLW  8C
+0098:  BSF    03.5
+0099:  MOVWF  08
+009A:  BCF    03.5
+009B:  BSF    08.0
+....................           
+....................          // desliga o vermelho pros carros e acende o verde e volta pro estado inicial 
+....................           
+....................          delay_ms(DELAY_AMARELO); 
+009C:  MOVLW  04
+009D:  MOVWF  22
+009E:  MOVLW  FA
+009F:  MOVWF  23
+00A0:  CALL   004
+00A1:  DECFSZ 22,F
+00A2:  GOTO   09E
+....................          output_low(CARRO_VERMELHO); 
+00A3:  MOVLW  8C
+00A4:  BSF    03.5
+00A5:  MOVWF  08
+00A6:  BCF    03.5
+00A7:  BCF    08.4
+....................          output_high(CARRO_VERDE); 
+00A8:  BSF    03.5
+00A9:  MOVWF  08
+00AA:  BCF    03.5
+00AB:  BSF    08.6
+....................       
+....................          output_low(PEDESTRE_BOTAO); // abaixa a saída do botão do pedestre 
+00AC:  BSF    03.5
+00AD:  BCF    06.0
+00AE:  BCF    03.5
+00AF:  BCF    06.0
+....................           
+....................       } 
+00B0:  GOTO   037
+....................  
+....................    } 
+....................  
+.................... } 
+00B1:  SLEEP
+
+Configuration Fuses:
+   Word  1: 3F32   HS NOWDT PUT NOBROWNOUT NOLVP NOCPD NOWRT NODEBUG NOPROTECT

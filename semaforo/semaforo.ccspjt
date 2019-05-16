@@ -1,0 +1,23 @@
+[PROJECT]
+Target=semaforo.hex
+Processor_Text=PIC16F877A
+CCSVerions=5.008
+Compiler=PCM
+CCSVersion=5.008
+[Target Data]
+FileList=semaforo.c
+[Directories]
+Include=C:\Program Files (x86)\PICC\Devices\;C:\Program Files (x86)\PICC\Drivers\;C:\Users\dougl\Desktop\Microcontroladores\Projetos\semaforo\
+[C:\Users\dougl\Desktop\Microcontroladores\Projetos\semaforo\semaforo]
+Type=4
+[mru-list]
+1=semaforo.c
+[Opened Files]
+1=..\porta-eletronico\portao-eletronico.c
+2=
+3=
+[semaforo.c]
+Type=4
+[Units]
+Count=1
+1=semaforo (main)
